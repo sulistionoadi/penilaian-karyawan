@@ -8,10 +8,14 @@ package absen.karyawan;
 
 import absen.karyawan.service.AbsenServiceImpl;
 import absen.karyawan.service.AbsenService;
+import absen.karyawan.ui.LoginDialog;
 import absen.karyawan.ui.MainFrame;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -39,17 +43,33 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                initLogin();
+            }
+        });
+    }
+    
+    public static void initLogin() {
         try {
-            Class.forName(DB_DRIVER);
-            Connection conn = DriverManager.getConnection(DB_CONNECTION, DB_USER, DB_PASSWORD);
-            service = new AbsenServiceImpl(conn);
-            
-            mainFrame = new MainFrame();
-            mainFrame.setVisible(true);
-        } catch (SQLException ex) {
-            System.out.println("ERROR : " + ex.getMessage());
+            if (mainFrame == null) {
+                mainFrame = new MainFrame();
+            }
+            mainFrame.isiMapUser();
+            if(new LoginDialog().showLogin()){
+                Class.forName(DB_DRIVER);
+                Connection conn = DriverManager.getConnection(DB_CONNECTION, DB_USER, DB_PASSWORD);
+                service = new AbsenServiceImpl(conn);
+
+                mainFrame.setVisible(true);
+                mainFrame.initSecurity();
+                mainFrame.setVisible(true);
+            }
         } catch (ClassNotFoundException ex) {
-            System.out.println("ERROR : " + ex.getMessage());
+            JOptionPane.showMessageDialog(Main.getMainFrame(), ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(Main.getMainFrame(), ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     

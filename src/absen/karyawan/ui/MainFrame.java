@@ -6,11 +6,14 @@
 
 package absen.karyawan.ui;
 
+import absen.karyawan.Main;
 import absen.karyawan.ui.panel.GenerateRekapPanel;
 import absen.karyawan.ui.panel.JabatanPanel;
 import absen.karyawan.ui.panel.KaryawanPanel;
 import absen.karyawan.ui.panel.ManagementPanel;
 import absen.karyawan.ui.panel.PenilaianPanel;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JTabbedPane;
 
 /**
@@ -20,6 +23,9 @@ import javax.swing.JTabbedPane;
 public class MainFrame extends javax.swing.JFrame {
 
     private Integer indexTab = -1;
+    private static Map<String, String> dataUser = new HashMap<String, String>();
+    private String userLogin;
+    
     /**
      * Creates new form MainFrame
      */
@@ -27,6 +33,54 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setExtendedState(MainFrame.MAXIMIZED_BOTH);
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
+    }
+    
+    public void isiMapUser(){
+        dataUser.put("supervisor", "spv123");
+        dataUser.put("hrd", "hrd123");
+        dataUser.put("pimpinan", "boss123");
+    }
+    
+    public void  initSecurity(){
+        disableAllMenu();
+        if(userLogin.equals("supervisor")){
+            mnuPenilaian.setVisible(true);
+            mnuItemInputPenilaian.setVisible(true);
+        } else if(userLogin.equals("hrd")){
+            mnuData.setVisible(true);
+            mnuPenilaian.setVisible(true);
+            mnuItemKaryawan.setVisible(true);
+            mnuItemJabatan.setVisible(true);
+            mnuItemRekapPenilaian.setVisible(true);
+        } else {
+            mnuPenilaian.setVisible(true);
+            mnuItemManagement.setVisible(true);
+        }
+    }
+    
+    private void disableAllMenu(){
+        mnuItemKaryawan.setVisible(false);
+        mnuItemJabatan.setVisible(false);
+        mnuItemInputPenilaian.setVisible(false);
+        mnuItemRekapPenilaian.setVisible(false);
+        mnuItemManagement.setVisible(false);
+        mnuData.setVisible(false);
+        mnuPenilaian.setVisible(false);
+    }
+
+    public Boolean login(String user, String password) {
+        String pass = dataUser.get(user);
+        if(pass==null){
+            return false;
+        } else if(pass.equals(password)){
+            return true;
+        } else {
+            return false;
+        }
     }
     
     public JTabbedPane getTabPanel() {
@@ -57,13 +111,13 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         mnuItemLogout = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        mnuData = new javax.swing.JMenu();
         mnuItemKaryawan = new javax.swing.JMenuItem();
         mnuItemJabatan = new javax.swing.JMenuItem();
-        mnuItemInputPenilaian = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        mnuPenilaian = new javax.swing.JMenu();
+        mnuItemInputPenilaian = new javax.swing.JMenuItem();
         mnuItemRekapPenilaian = new javax.swing.JMenuItem();
-        mnuManagement = new javax.swing.JMenuItem();
+        mnuItemManagement = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Aplikasi Penilaian Karyawan");
@@ -92,11 +146,16 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu1.setText("System");
 
         mnuItemLogout.setText("Logout");
+        mnuItemLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItemLogoutActionPerformed(evt);
+            }
+        });
         jMenu1.add(mnuItemLogout);
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Data");
+        mnuData.setText("Data");
 
         mnuItemKaryawan.setText("Karyawan");
         mnuItemKaryawan.addActionListener(new java.awt.event.ActionListener() {
@@ -104,7 +163,7 @@ public class MainFrame extends javax.swing.JFrame {
                 mnuItemKaryawanActionPerformed(evt);
             }
         });
-        jMenu2.add(mnuItemKaryawan);
+        mnuData.add(mnuItemKaryawan);
 
         mnuItemJabatan.setText("Jabatan");
         mnuItemJabatan.addActionListener(new java.awt.event.ActionListener() {
@@ -112,19 +171,19 @@ public class MainFrame extends javax.swing.JFrame {
                 mnuItemJabatanActionPerformed(evt);
             }
         });
-        jMenu2.add(mnuItemJabatan);
+        mnuData.add(mnuItemJabatan);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(mnuData);
 
-        mnuItemInputPenilaian.setText("Penilaian");
+        mnuPenilaian.setText("Penilaian");
 
-        jMenuItem1.setText("Input Penilaian");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        mnuItemInputPenilaian.setText("Input Penilaian");
+        mnuItemInputPenilaian.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                mnuItemInputPenilaianActionPerformed(evt);
             }
         });
-        mnuItemInputPenilaian.add(jMenuItem1);
+        mnuPenilaian.add(mnuItemInputPenilaian);
 
         mnuItemRekapPenilaian.setText("Rekap Penilaian");
         mnuItemRekapPenilaian.addActionListener(new java.awt.event.ActionListener() {
@@ -132,17 +191,17 @@ public class MainFrame extends javax.swing.JFrame {
                 mnuItemRekapPenilaianActionPerformed(evt);
             }
         });
-        mnuItemInputPenilaian.add(mnuItemRekapPenilaian);
+        mnuPenilaian.add(mnuItemRekapPenilaian);
 
-        mnuManagement.setText("Management");
-        mnuManagement.addActionListener(new java.awt.event.ActionListener() {
+        mnuItemManagement.setText("Management");
+        mnuItemManagement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuManagementActionPerformed(evt);
+                mnuItemManagementActionPerformed(evt);
             }
         });
-        mnuItemInputPenilaian.add(mnuManagement);
+        mnuPenilaian.add(mnuItemManagement);
 
-        jMenuBar1.add(mnuItemInputPenilaian);
+        jMenuBar1.add(mnuPenilaian);
 
         setJMenuBar(jMenuBar1);
 
@@ -189,7 +248,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mnuItemJabatanActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void mnuItemInputPenilaianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemInputPenilaianActionPerformed
         PenilaianPanel.getPanel().setName(PenilaianPanel.PANEL_NAME);
         indexTab = getComponentIndexByName(PenilaianPanel.PANEL_NAME);
         if (indexTab == -1) {
@@ -198,7 +257,7 @@ public class MainFrame extends javax.swing.JFrame {
         } else {
             tabPanel.setSelectedIndex(indexTab);
         }
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_mnuItemInputPenilaianActionPerformed
 
     private void mnuItemRekapPenilaianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemRekapPenilaianActionPerformed
         GenerateRekapPanel.getPanel().setName(GenerateRekapPanel.PANEL_NAME);
@@ -211,7 +270,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mnuItemRekapPenilaianActionPerformed
 
-    private void mnuManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuManagementActionPerformed
+    private void mnuItemManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemManagementActionPerformed
         ManagementPanel.getPanel().setName(ManagementPanel.PANEL_NAME);
         indexTab = getComponentIndexByName(ManagementPanel.PANEL_NAME);
         if (indexTab == -1) {
@@ -220,7 +279,13 @@ public class MainFrame extends javax.swing.JFrame {
         } else {
             tabPanel.setSelectedIndex(indexTab);
         }
-    }//GEN-LAST:event_mnuManagementActionPerformed
+    }//GEN-LAST:event_mnuItemManagementActionPerformed
+
+    private void mnuItemLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemLogoutActionPerformed
+        tabPanel.removeAll();
+        this.dispose();
+        Main.initLogin();
+    }//GEN-LAST:event_mnuItemLogoutActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -228,15 +293,15 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenu mnuItemInputPenilaian;
+    private javax.swing.JMenu mnuData;
+    private javax.swing.JMenuItem mnuItemInputPenilaian;
     private javax.swing.JMenuItem mnuItemJabatan;
     private javax.swing.JMenuItem mnuItemKaryawan;
     private javax.swing.JMenuItem mnuItemLogout;
+    private javax.swing.JMenuItem mnuItemManagement;
     private javax.swing.JMenuItem mnuItemRekapPenilaian;
-    private javax.swing.JMenuItem mnuManagement;
+    private javax.swing.JMenu mnuPenilaian;
     private javax.swing.JTabbedPane tabPanel;
     // End of variables declaration//GEN-END:variables
 }
