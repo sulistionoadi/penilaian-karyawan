@@ -1,0 +1,5 @@
+# Netbeans Ignore
+nbproject
+build
+dist
+private
