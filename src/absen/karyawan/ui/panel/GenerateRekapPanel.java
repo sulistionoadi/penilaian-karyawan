@@ -10,10 +10,24 @@ import absen.karyawan.Main;
 import absen.karyawan.TableUtil;
 import absen.karyawan.domain.RekapNilai;
 import absen.karyawan.tablemodel.RekapBulananTableModel;
+import java.awt.BorderLayout;
+import java.awt.Toolkit;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JTabbedPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.swing.JRViewer;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -60,6 +74,7 @@ public class GenerateRekapPanel extends javax.swing.JPanel {
         monthSearchBy = new com.toedter.calendar.JMonthChooser();
         yearSearchBy = new com.toedter.calendar.JYearChooser();
         btnSearch = new javax.swing.JButton();
+        btnPrint = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRekap = new javax.swing.JTable();
         btnClose = new javax.swing.JButton();
@@ -98,6 +113,14 @@ public class GenerateRekapPanel extends javax.swing.JPanel {
             }
         });
 
+        btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/absen/karyawan/images/print.png"))); // NOI18N
+        btnPrint.setText("Print");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -110,11 +133,15 @@ public class GenerateRekapPanel extends javax.swing.JPanel {
                 .addComponent(yearSearchBy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSearch)
+                .addGap(18, 18, 18)
+                .addComponent(btnPrint)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnSearch, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(btnSearch)
+                .addComponent(btnPrint))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(monthSearchBy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(jLabel6)
@@ -226,10 +253,47 @@ public class GenerateRekapPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnSearchActionPerformed
 
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        try {
+            String tahun = String.valueOf(yearSearchBy.getYear());
+            String bulan = StringUtils.leftPad(String.valueOf(monthSearchBy.getMonth()+1), 2, "0");
+            List<RekapNilai> list = Main.getService().getRekapNilai(bulan, tahun);
+            if(list==null){
+                JOptionPane.showMessageDialog(Main.getMainFrame(), "Tidak ada data yang akan di cetak!!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            InputStream inputStream = getClass().getResourceAsStream("/jasper/LaporanNilai.jasper");
+            Map<String, Object> parameters = new HashMap<String, Object>();
+            
+            JasperPrint j = JasperFillManager.fillReport(inputStream, parameters, new JRBeanCollectionDataSource(list));
+            showPrintDialog(j);
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(Main.getMainFrame(), ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(Main.getMainFrame(), ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnPrintActionPerformed
 
+    public void showPrintDialog(JasperPrint kascisPrint) {
+        JDialog dialog = new JDialog(Main.getMainFrame(), true);
+        dialog.setTitle("Laporan Nilai Karyawan");
+        
+        JTabbedPane pane = new JTabbedPane();
+        dialog.getContentPane().add(pane, BorderLayout.CENTER);
+        pane.addTab("Laporan Nilai Karyawan", new JRViewer(kascisPrint));
+
+        dialog.pack();
+        dialog.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+        dialog.setLocationRelativeTo(null);
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        dialog.setVisible(true);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnGenerateRekap;
+    private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

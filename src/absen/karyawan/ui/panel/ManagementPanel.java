@@ -84,7 +84,6 @@ public class ManagementPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRekap = new javax.swing.JTable();
         btnClose = new javax.swing.JButton();
-        btnPrint = new javax.swing.JButton();
 
         btnUbahJabatan.setForeground(new java.awt.Color(0, 0, 0));
         btnUbahJabatan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/absen/karyawan/images/edit.gif"))); // NOI18N
@@ -120,16 +119,6 @@ public class ManagementPanel extends javax.swing.JPanel {
             }
         });
 
-        btnPrint.setForeground(new java.awt.Color(0, 0, 0));
-        btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/absen/karyawan/images/print.png"))); // NOI18N
-        btnPrint.setText("Print");
-        btnPrint.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-        btnPrint.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrintActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -140,8 +129,6 @@ public class ManagementPanel extends javax.swing.JPanel {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 691, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(btnUbahJabatan)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnPrint)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnClose)))
                 .addContainerGap())
@@ -152,10 +139,9 @@ public class ManagementPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(btnUbahJabatan)
-                    .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnClose))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -177,14 +163,9 @@ public class ManagementPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnUbahJabatanActionPerformed
 
-    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnPrintActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
-    private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnUbahJabatan;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblRekap;
