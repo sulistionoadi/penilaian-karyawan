@@ -11,8 +11,6 @@ import absen.karyawan.TableUtil;
 import absen.karyawan.domain.Karyawan;
 import absen.karyawan.tablemodel.KaryawanTableModel;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;

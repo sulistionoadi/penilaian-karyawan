@@ -54,7 +54,7 @@ public class AbsenServiceImpl implements AbsenService{
     
     private final String SQL_INSERT_REKAP_NILAI_KARYAWAN = "INSERT INTO rekap_nilai (nip, bulan, tahun, saldo_awal, point) VALUES (?,?,?,?,?)";
     private final String SQL_FINDONE_REKAP_NILAI = "SELECT j.nama as nama_jabatan, k.*, r.id as id_rekap, r.bulan as bulan_rekap, r.tahun as tahun_rekap, r.saldo_awal as saldo_awal, r.point as point FROM karyawan k INNER JOIN jabatan j on j.kode=k.kode_jabatan INNER JOIN rekap_nilai r on r.nip=k.nip WHERE k.nip=? and r.bulan=? and r.tahun=?";
-    private final String SQL_FINDALL_REKAP_NILAI = "SELECT j.nama as nama_jabatan, k.*, r.id as id_rekap, r.bulan as bulan_rekap, r.tahun as tahun_rekap, r.saldo_awal as saldo_awal, r.point as point FROM karyawan k INNER JOIN jabatan j on j.kode=k.kode_jabatan INNER JOIN rekap_nilai r on r.nip=k.nip WHERE r.bulan=? and r.tahun=?";
+    private final String SQL_FINDALL_REKAP_NILAI = "SELECT j.nama as nama_jabatan, k.*, r.id as id_rekap, r.bulan as bulan_rekap, r.tahun as tahun_rekap, r.saldo_awal as saldo_awal, r.point as point FROM karyawan k INNER JOIN jabatan j on j.kode=k.kode_jabatan INNER JOIN rekap_nilai r on r.nip=k.nip WHERE r.bulan=? and r.tahun=? ORDER BY r.point DESC";
             
     private Connection conn;
     public AbsenServiceImpl(Connection conn) {

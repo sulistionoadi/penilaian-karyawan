@@ -60,12 +60,15 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuItemRekapPenilaianActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuManagement">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Management"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuManagementActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="mnuItemManagement">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Management"/>
-          </Properties>
         </Menu>
       </SubComponents>
     </Menu>

@@ -13,11 +13,8 @@ import absen.karyawan.tablemodel.RekapBulananTableModel;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.apache.commons.lang.StringUtils;
-import org.joda.time.DateTime;
 
 /**
  *

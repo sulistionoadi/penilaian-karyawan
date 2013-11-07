@@ -9,6 +9,7 @@ package absen.karyawan.ui;
 import absen.karyawan.ui.panel.GenerateRekapPanel;
 import absen.karyawan.ui.panel.JabatanPanel;
 import absen.karyawan.ui.panel.KaryawanPanel;
+import absen.karyawan.ui.panel.ManagementPanel;
 import absen.karyawan.ui.panel.PenilaianPanel;
 import javax.swing.JTabbedPane;
 
@@ -62,7 +63,7 @@ public class MainFrame extends javax.swing.JFrame {
         mnuItemInputPenilaian = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         mnuItemRekapPenilaian = new javax.swing.JMenuItem();
-        mnuItemManagement = new javax.swing.JMenu();
+        mnuManagement = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Aplikasi Penilaian Karyawan");
@@ -133,10 +134,15 @@ public class MainFrame extends javax.swing.JFrame {
         });
         mnuItemInputPenilaian.add(mnuItemRekapPenilaian);
 
-        jMenuBar1.add(mnuItemInputPenilaian);
+        mnuManagement.setText("Management");
+        mnuManagement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuManagementActionPerformed(evt);
+            }
+        });
+        mnuItemInputPenilaian.add(mnuManagement);
 
-        mnuItemManagement.setText("Management");
-        jMenuBar1.add(mnuItemManagement);
+        jMenuBar1.add(mnuItemInputPenilaian);
 
         setJMenuBar(jMenuBar1);
 
@@ -205,6 +211,17 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mnuItemRekapPenilaianActionPerformed
 
+    private void mnuManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuManagementActionPerformed
+        ManagementPanel.getPanel().setName(ManagementPanel.PANEL_NAME);
+        indexTab = getComponentIndexByName(ManagementPanel.PANEL_NAME);
+        if (indexTab == -1) {
+            tabPanel.addTab(ManagementPanel.PANEL_NAME, ManagementPanel.getPanel());
+            setSelectedPanel(ManagementPanel.PANEL_NAME);
+        } else {
+            tabPanel.setSelectedIndex(indexTab);
+        }
+    }//GEN-LAST:event_mnuManagementActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private absen.karyawan.ui.JImagePanel jImagePanel1;
@@ -218,8 +235,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuItemJabatan;
     private javax.swing.JMenuItem mnuItemKaryawan;
     private javax.swing.JMenuItem mnuItemLogout;
-    private javax.swing.JMenu mnuItemManagement;
     private javax.swing.JMenuItem mnuItemRekapPenilaian;
+    private javax.swing.JMenuItem mnuManagement;
     private javax.swing.JTabbedPane tabPanel;
     // End of variables declaration//GEN-END:variables
 }
