@@ -134,14 +134,14 @@ public class MainFrame extends javax.swing.JFrame {
         jImagePanel1.setLayout(jImagePanel1Layout);
         jImagePanel1Layout.setHorizontalGroup(
             jImagePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 563, Short.MAX_VALUE)
+            .addGap(0, 506, Short.MAX_VALUE)
         );
         jImagePanel1Layout.setVerticalGroup(
             jImagePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 182, Short.MAX_VALUE)
+            .addGap(0, 309, Short.MAX_VALUE)
         );
 
-        tabPanel.addTab("Beranda", jImagePanel1);
+        tabPanel.addTab("Home", jImagePanel1);
 
         jMenu1.setText("System");
 

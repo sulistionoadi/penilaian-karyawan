@@ -143,8 +143,8 @@
         <Container class="absen.karyawan.ui.JImagePanel" name="jImagePanel1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Beranda">
-                <Property name="tabTitle" type="java.lang.String" value="Beranda"/>
+              <JTabbedPaneConstraints tabName="Home">
+                <Property name="tabTitle" type="java.lang.String" value="Home"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -152,12 +152,12 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="563" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="506" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="182" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="309" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
