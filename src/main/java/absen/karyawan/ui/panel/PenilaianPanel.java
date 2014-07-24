@@ -496,7 +496,7 @@ public class PenilaianPanel extends javax.swing.JPanel {
         String sdate = sdf.format(dateDariTanggal.getDate());
         String edate = sdf.format(dateSampaiTanggal.getDate());
         
-        List<PenilaianDTO> dtos = new ArrayList<>();
+        List<PenilaianDTO> dtos = new ArrayList<PenilaianDTO>();
         try {
             if(karyawanSearch != null){
                 if(cmbSearchOption.getSelectedItem().equals("ABSENSI")){

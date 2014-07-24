@@ -1,0 +1,15 @@
+Cara Menjalankan Program..
+
+1. Buat dulu database dengan nama absen_karyawan
+2. Buat username absen dan password absen untuk mengakses database absen_karyawan
+   Cara membuatnya masuk dulul ke SQL Command
+   Kemudian Jalankan Perintah 
+   GRANT ALL ON absen_karyawan.* TO absen@localhost identified by 'absen';
+
+3  restore databse dari file sql yang ada di dalam folder DATA
+4. Kemudian Masuk ke direktory dist
+5. Jalankan Program dengan menuliskan perintah
+   java -jar absen-karyawan.jar
+   
+Username dan pasword untuk masuk ke aplikasi
+lihat di file user yang ada di folder DATA;

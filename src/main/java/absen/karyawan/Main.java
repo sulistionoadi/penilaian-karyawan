@@ -13,8 +13,6 @@ import absen.karyawan.ui.MainFrame;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -26,8 +24,8 @@ public class Main {
     private static MainFrame mainFrame;
     private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
     private static final String DB_CONNECTION = "jdbc:mysql://localhost/absen_karyawan?zeroDateTimeBehavior=convertToNull";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "admin";
+    private static final String DB_USER = "absen";
+    private static final String DB_PASSWORD = "absen";
     private static AbsenService service;
 
     public static MainFrame getMainFrame() {
